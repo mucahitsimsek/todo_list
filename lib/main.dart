@@ -5,7 +5,10 @@ import 'package:todo_list/screens/home_page.dart';
 
 import 'models/items_data.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ColorThemeData().createPrefObject();
+  await ItemData().createPrefObject();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<ItemData>(
       create: (BuildContext context) => ItemData(),
@@ -21,11 +24,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: Provider.of<ColorThemeData>(context).selectedThemeData,
-      home: const HomePage(),
+    return Consumer2<ItemData, ColorThemeData>(
+      builder: (context, itemData, colorThemeData, child) {
+        colorThemeData.loadThemeFromSharedPref();
+        itemData.loadItemsFromSharedPref();
+        return MaterialApp(
+          title: 'Flutter Demo',
+          theme: Provider.of<ColorThemeData>(context).selectedThemeData,
+          home: const HomePage(),
+        );
+      },
     );
   }
 }
-

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +12,8 @@ class ItemaAdderContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final textCotroller = TextEditingController();
     return Container(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       color: Colors.yellow.shade50,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -29,15 +29,12 @@ class ItemaAdderContainer extends StatelessWidget {
                 hintText: '...',
               ),
               autofocus: true,
-              onChanged: (e) {
-                if (kDebugMode) {
-                  print(textCotroller.text);
-                }
-              },
+              onChanged: (e) {},
             ),
             ElevatedButton(
-              onPressed: (){
-                Provider.of<ItemData>(context, listen: false).addItem(textCotroller.text);
+              onPressed: () {
+                Provider.of<ItemData>(context, listen: false)
+                    .addItem(textCotroller.text);
                 Navigator.pop(context);
               },
               style: ButtonStyle(
